@@ -65,4 +65,9 @@ def get_question(question_id: int, db: Session = Depends(get_db)):
     question = db.query(models.Question).filter(models.Question.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
-    return question 
+    return question
+
+@router.get("/ping")
+def ping():
+    logging.info('Received ping request')
+    return {"message": "pong"}
